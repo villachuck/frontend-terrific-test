@@ -1,0 +1,85 @@
+.header {
+    background: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;   
+}
+
+.menu-section {
+    display: flex;
+    align-items: center;
+}
+
+.app-logo img {
+    max-width: 120px;
+}
+
+.list-app-menu {
+    padding: 0 40px;
+}
+
+.list-app-menu li {
+    display: inline;
+    color: #fff;
+    padding: 0 10px;
+}
+
+.user-options {
+    position: relative;
+    display: block;
+    width: 40%;
+}
+
+.user-icon {
+	text-align: right;    
+}
+
+.user-icon img {
+    max-width: 30px;
+    display: inline-block;
+    padding-right: 15px;
+    vertical-align: middle;
+}
+
+.user-icon p {
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.user-menu {
+    display: none;
+    position: absolute;
+    top: 60px;
+    width: max-content;
+    right: 0;
+    border: 2px solid #cccccc;
+    border-radius: 0 0 10px 10px;
+}
+
+.user-menu ul {
+    padding: 0 40px;
+}
+
+.user-menu ul li {
+    list-style-type: none;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+.mobile-menu img {
+    width: 40px;
+}
+
+@media screen and (max-width: 992px) {
+    .mobile-menu {
+        display: block;
+    }
+
+    .app-menu, .user-options {
+        display: none;
+    }
+}

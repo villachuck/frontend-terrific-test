@@ -1,0 +1,139 @@
+.popup-visible {
+    display: block;
+}
+
+.popup-hidden {
+    display: none;
+}
+
+.popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    width: 450px;
+}
+
+.popup-background {
+	position: fixed;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+
+.popup-header {
+    background: #000;
+    color: #fff;
+    padding: 8px 16px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-weight: bold;
+    position: relative;
+}
+
+.close-popup {
+    position: absolute;
+    right: 5px;
+    top: 2px; 
+    cursor: pointer;   
+}
+
+.close-popup img {
+    width: 35px;
+}
+
+.popup-body {
+    padding: 16px;
+}
+
+.popup-body {
+    padding-bottom: 10px;
+}
+
+.popup-footer {
+    padding: 16px;
+    border-top: 1px solid #000;
+    text-align: right;
+}
+
+.btn-create-element {
+    background: #ffbd33;
+    border: #ffbd33;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 20px;
+}
+ 
+.name-section input {
+    display: block;
+    text-align: left;
+}
+
+.input-name {
+    width: -webkit-fill-available;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.category-section select {
+    display: block;
+    text-align: left;
+}
+
+.todo-fields label {
+    padding-bottom: 8px;
+    display: block;
+    text-align: left;
+}
+
+#categories {
+    background: #ccc;
+    border: #ccc;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#categories option {
+    background: #fff;
+}
+
+.name-section,
+.category-section,
+.date-section {
+    padding-bottom: 15px;
+}
+
+.date-section .react-datepicker-wrapper {
+    display: block !important;
+}
+
+.date-section input {
+    display: block;
+    height: 30px;
+    border-radius: 5px;
+    width: 50%;
+}
+
+.task-fields label {
+    padding-bottom: 8px;
+    display: block;
+    text-align: left;
+}
+
+.task-fields textarea {
+    display: block;
+    border-radius: 5px;
+    width: 100%;
+}

@@ -1,0 +1,112 @@
+.body-app {
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.new-todo-list {
+    background: #fff;
+    border: 1px solid #ffbd33;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    height: 50px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.new-todo-list img {
+	width: 25px;
+    vertical-align: middle;    
+}
+
+.container-body-list ul {
+    padding: 0;
+}
+
+.container-body-list ul li {
+    list-style-type: none;
+    display: contents;
+}
+
+.accordion-element {
+    padding-bottom: 25px;    
+}
+
+.list-header {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 16px;
+    align-items: center;
+}
+
+.list-header div {
+    font-weight: bold;
+}
+
+.list-name {
+    text-align: left;
+}
+
+.list-actions {
+    text-align: right;
+    display: flex;
+    align-items: center;
+}
+
+.action-container input {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+}
+
+.action-button {
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.container-body-list ul li img {
+    width: 30px;
+}
+
+.action-button img {
+    display: inline-block;
+    vertical-align: middle;
+} 
+
+.action-button p {
+    display: inline-block;
+}
+
+.completed-list {
+    padding: 5px 20px;
+    border: 1px solid #fff;
+    margin-left: 15px;
+}
+
+.completed-list p {
+    display: inline-block;
+    color: #fff;
+}
+
+.active-color {
+    background: #ffbd33;
+}
+
+.completed-color {
+    background: #aa7e22;
+}
+
+@media screen and (max-width: 992px) {
+    .body-app {
+        padding: 0 16px;
+    }
+}

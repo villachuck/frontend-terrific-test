@@ -1,0 +1,68 @@
+.accordion-body {
+    border: 1px solid #000;
+    padding: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;    
+}
+
+.details-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.detail-input-block label {
+    padding-right: 10px;
+    font-weight: 500;
+}
+
+.detail-input-block input {
+    height: 25px;
+    border-radius: 5px;
+    width: 350px;
+}
+
+.detail-options span {
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.detail-options-new span {
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.detail-options-new img {
+    width: 35px !important;
+}
+
+.add-new-detail {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+.input-visible {
+    display: block;
+}
+
+.input-hidden {
+    display: none;
+}
+
+.accordion-show {
+    display: block;
+}
+
+.accordion-hide {
+    display: none;
+}
+
+.set-style-through span {
+    text-decoration: line-through;
+}
+
+.remove-style-through span {
+    text-decoration: none;
+}
