@@ -105,6 +105,14 @@
     background: #aa7e22;
 }
 
+.category-name {
+    border: 1px solid #fff;
+    border-radius: 15px;
+    padding: 2px 15px;
+    margin-left: 25px;
+    background: #fff;
+}
+
 @media screen and (max-width: 992px) {
     .body-app {
         padding: 0 16px;

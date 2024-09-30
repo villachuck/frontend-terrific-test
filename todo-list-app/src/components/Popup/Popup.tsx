@@ -18,7 +18,7 @@ interface Categories {
 }
 
 const Popup: React.FC<PopupProps> = ({ type, show, onClose, callback }) => {
-    const popUpTitle = type == 'todoList' ? 'New To-Do List' : 'New Task';
+    const popUpTitle = type == 'todoList' ? 'New To-Do List' : 'Update To-Do List';
     const openPopUp = show ? 'popup-visible' : 'popup-hidden';
     //const [visibility, setVisibility] = useState<string>(openPopUp);
     const [categoryList, setCategoryList] = useState<Categories[]>([]);

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/UserContext';
 import './Login.css';
 
 const Login = () => {
@@ -8,6 +9,7 @@ const Login = () => {
     const [userEmail, setUserEmail] = useState<string>('');
     const [userPassword, setUserPassword] = useState<string>('');
     const navigate = useNavigate();
+    const { setUserId } = useUser();
 
     const login = () => {
         const loginData = {
@@ -55,6 +57,7 @@ const Login = () => {
         .then(data => {
             if(data.status == 200){
                 console.log(data);
+                setUserId(data.id);
                 navigate(`/home/${data.id}`);  
             }
             else{

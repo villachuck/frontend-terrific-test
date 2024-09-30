@@ -1,7 +1,12 @@
 import React from "react";
 import './Header.css';
+import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header: React.FC = () => { 
+    
+    const removeSession = () => {
+        localStorage.setItem('isAuthenticated', 'false');
+    }
     
     return (
         <div className="header">
@@ -11,20 +16,20 @@ const Header = () => {
                 </div>
                 <div className="app-menu">
                     <ul className="list-app-menu">
-                        <li>My Lists</li>
-                        <li>Calendar</li>                    
+                        <li>
+                            <Link to="/my-lists">My Lists</Link>
+                        </li>
+                        <li>
+                            <Link to="/my-calendar">Calendar</Link>
+                        </li>                    
                     </ul>                
                 </div>
             </div>
             <div className="user-options">
-                <div className="user-icon">
-                    <img src="/user-icon.png" alt="user logo" />
-                    <p>User email</p>
-                </div>
-                <div className="user-menu">
-                    <ul>
-                        <li>Logout</li>
-                    </ul>
+                <div className="log-out-section">
+                    <Link to="/">
+                        <button type="button" className="logout-btn" onClick={removeSession}>Logout</button>
+                    </Link>
                 </div>
             </div>
             <div className="mobile-menu">

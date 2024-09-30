@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Accordion from '../../components/Accordion/Accordion';
-import './Home.css'
 import Popup from '../../components/Popup/Popup';
+import UpdateBar from '../../components/UpdateBar/UpdateBar';
+import './Home.css'
 
 interface List {
     id: string;
-    categroy: string;
+    category: string;
     list_name: string;
     status: string;
 }
@@ -16,10 +17,13 @@ const Home: React.FC = () => {
     const [today, setSelectedDate] = useState(currentDate);
     const [list, setLists] = useState<List[]>([]);
     const [loading, setLoading] = useState<boolean>(true); 
-    const [isPopUpVisible, setIsPopUpVisible] = useState(false); 
+    const [isPopUpVisible, setIsPopUpVisible] = useState<boolean>(false); 
+    const [isUpdatePopUpVisible, setUpdatePopUpVisible] = useState(false); 
     const [taksType, setTaskType] = useState<string>("todoList");
     const [selectedList, setSelectedList] = useState<string | null>(null);
     const { userId } = useParams<{ userId: string }>();
+    const [popupAction, setPopupAction] = useState<string | null>(null);
+    const [toggleIcon, settoggleIcon] = useState<boolean>(false);
 
     const getLists = async () => {
         try {
@@ -43,12 +47,23 @@ const Home: React.FC = () => {
         getLists();
     }, []);
 
-    const openPopUp = () => setIsPopUpVisible(true);
+    const openPopUp = () => {
+        setTaskType('todoList');
+        setPopupAction(null);        
+        setIsPopUpVisible(true);
+    }
 
+    const openUpdatesPopup = () => {
+        setUpdatePopUpVisible(true);
+    }
+    
     const closePopUp = () => setIsPopUpVisible(false);
+    
+    const closePopUpUpdates = () => setUpdatePopUpVisible(false);
 
     const toggleInputDetail = (id: string) => {
         setSelectedList(selectedList === id ? null : id);
+        settoggleIcon(!toggleIcon);
     } 
 
     const toggleBackInputDetails = () => setSelectedList(null);
@@ -105,7 +120,10 @@ const Home: React.FC = () => {
                             <li key={item.id}>
                                 <div className='accordion-element'>
                                     <div className={`list-header ${item.status === 'pending' ? 'active-color' : 'completed-color'}`}>
-                                        <div className='list-name'>Name: {item.list_name}</div>
+                                        <div className='list-name'>
+                                            Name: {item.list_name}
+                                            <span className='category-name'>{item.category}</span>    
+                                        </div>
                                         <div className='list-actions'>
                                             {item.status === 'pending' &&
                                             <div className='action-container'>
@@ -116,7 +134,7 @@ const Home: React.FC = () => {
                                             </div>
                                             }                                             
                                             <div className='action-container'>
-                                                <span className='action-button'>
+                                                <span className='action-button' onClick={() => openUpdatesPopup()}>
                                                     <img src='/edit-icon-black.png' />
                                                     <p>Edit</p>
                                                 </span>
@@ -145,8 +163,11 @@ const Home: React.FC = () => {
                                             </>
                                             }
                                             <div className='action-container'>
-                                                <span className='action-button'>
-                                                    <img src='/toggle-down-icon.png' />
+                                                <span className='action-button' onClick={() => toggleInputDetail(item.id)}>
+                                                    <img src='/toggle-down-icon.png' style={{
+                                                        transform: toggleIcon ? 'rotate(180deg)' : 'rotate(0deg)',
+                                                        transition: 'transform 0.3s ease'
+                                                    }}/>
                                                 </span>
                                             </div>                                                                                                                                                                   
                                         </div>
@@ -156,6 +177,7 @@ const Home: React.FC = () => {
                                         newOptionVisibility={selectedList === item.id}
                                         hideComponentForAdding={toggleBackInputDetails} 
                                         />
+                                    <UpdateBar id={item.id} show={isUpdatePopUpVisible} onClose={closePopUpUpdates} reload={getLists} />
                                 </div>
                             </li>
                         ))
@@ -165,7 +187,7 @@ const Home: React.FC = () => {
                 <p>There's no lists for today. Hit the button to create a new To-Do List.</p>
                 }
             </div>
-            <Popup type={taksType} show={isPopUpVisible} onClose={closePopUp} callback={getLists}/>
+            <Popup type={taksType} show={isPopUpVisible} onClose={closePopUp} callback={getLists} />
         </div>        
     )
 }
