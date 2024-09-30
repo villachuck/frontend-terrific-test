@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../context/UserContext';
+//import { useUser } from '../../context/UserContext';
 import './Login.css';
 
 const Login = () => {
@@ -9,7 +9,7 @@ const Login = () => {
     const [userEmail, setUserEmail] = useState<string>('');
     const [userPassword, setUserPassword] = useState<string>('');
     const navigate = useNavigate();
-    const { setUserId } = useUser();
+    //const { setUserId } = useUser();
 
     const login = () => {
         const loginData = {
@@ -28,8 +28,7 @@ const Login = () => {
                 setUserLogged(true);
                 localStorage.setItem('authToken', data.token);
                 localStorage.setItem('isAuthenticated', 'true');
-                getUserInfo();
-                navigate('/home');  
+                getUserInfo(); 
             }
             else{
                 setUserLogged(false);
@@ -57,7 +56,7 @@ const Login = () => {
         .then(data => {
             if(data.status == 200){
                 console.log(data);
-                setUserId(data.id);
+                //setUserId(data.id);
                 navigate(`/home/${data.id}`);  
             }
             else{

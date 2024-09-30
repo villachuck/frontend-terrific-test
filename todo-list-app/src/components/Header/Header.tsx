@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './Header.css';
-import { Link } from "react-router-dom";
 
 const Header: React.FC = () => { 
     
     const removeSession = () => {
         localStorage.setItem('isAuthenticated', 'false');
+        window.location.href = '/login';
     }
     
     return (
@@ -17,19 +17,17 @@ const Header: React.FC = () => {
                 <div className="app-menu">
                     <ul className="list-app-menu">
                         <li>
-                            <Link to="/my-lists">My Lists</Link>
+                            <a href="/my-lists">My Lists</a>
                         </li>
                         <li>
-                            <Link to="/my-calendar">Calendar</Link>
+                            <a href="/my-calendar">Calendar</a>
                         </li>                    
                     </ul>                
                 </div>
             </div>
             <div className="user-options">
                 <div className="log-out-section">
-                    <Link to="/">
-                        <button type="button" className="logout-btn" onClick={removeSession}>Logout</button>
-                    </Link>
+                    <button type="button" className="logout-btn" onClick={removeSession}>Logout</button>
                 </div>
             </div>
             <div className="mobile-menu">
