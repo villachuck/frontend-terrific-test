@@ -1,0 +1,122 @@
+.calendar-home {
+    padding: 16px;
+}
+
+.calendar-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    gap: 30px;
+}
+
+.calendar {
+    width: 100%;
+}
+
+.scheduled-lists {
+    display: none;
+}
+
+.w-60 {
+    width: 60%;
+}
+
+.w-40 {
+    width: 40%;
+    display: block !important;
+}
+
+.calendar .react-datepicker {
+    width: 100% !important;
+    box-shadow: -1px 2px 13px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -1px 2px 13px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 2px 13px 0px rgba(0,0,0,0.75);
+    border: 0;
+}
+  
+.calendar .react-datepicker__month-container {
+    width: 100% !important;
+}
+
+.calendar .react-datepicker__day-name, .calendar .react-datepicker__day {
+    width: 13% !important;
+    display: inline-flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    font-size: 16px;
+}
+
+.calendar .react-datepicker__day-name {
+    color: #000;
+    font-weight: bold;
+}
+
+.calendar .react-datepicker__day--keyboard-selected {
+    background: #ffbd33 !important;
+    color: #000;
+    font-weight: bold;
+}
+
+.calendar .react-datepicker__day:not([aria-disabled=true]):hover {
+    color: #000;
+    font-weight: bold;
+    background: #fff;
+}
+
+.calendar .react-datepicker__day--outside-month {
+    opacity: 0.5;
+}
+
+.calendar .react-datepicker__header {
+    background: #aa7e22;
+    border-bottom: 1px solid #fff;
+}
+
+.calendar .react-datepicker__current-month {
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.calendar .react-datepicker__day-names {
+    background: #fff;
+}
+
+.calendar .react-datepicker__current-month {
+    padding: 10px 0 15px 0 !important;
+}
+
+.calendar .react-datepicker__navigation-icon::before {
+    color: #fff !important;
+    border-color: #fff !important;
+    top: 13px !important;
+}
+
+.btn-details {
+    height: 35px;
+    background: #ffbd33;
+    border: #ffbd33;
+    color: #000;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0 10px;
+}
+
+@media screen and (max-width:992px) {
+    .calendar-container {
+        display: block;
+    }
+
+    .w-60 {
+        width: 100%;
+    }    
+    
+    .w-40 {
+        width: 100%;
+
+    }    
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 
 interface UpdateBarProps {
-    id: string;
+    id: string | null;
     show: boolean;
     onClose: () => void;
     reload: () => void;
@@ -34,30 +34,34 @@ const UpdateBar: React.FC<UpdateBarProps> = ({ id, show, onClose, reload }) => {
         status: ''
     });
 
-    useEffect(() => {
-        const getListInfo = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/api/listById/${id}`);
-                if(!response.ok) {
-                    throw new Error('Something went wrong');
-                }
-    
-                const data = await response.json();
-                setDetailsList({
-                    id: data.data[0].id,
-                    active: true,
-                    category: data.data[0].category,
-                    list_name: data.data[0].list_name,
-                    scheduled: data.data[0].scheduled,
-                    status: data.data[0].status
-                });                           
+    const getListInfo = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/listById/${id}`);
+            if(!response.ok) {
+                throw new Error('Something went wrong');
             }
-            catch(err) {
-                console.log(err);
-            }        
-        };
 
-        getListInfo();
+            const data = await response.json();
+            setDetailsList({
+                id: data.data[0].id,
+                active: true,
+                category: data.data[0].category,
+                list_name: data.data[0].list_name,
+                scheduled: data.data[0].scheduled,
+                status: data.data[0].status
+            }); 
+            console.log(data);                          
+        }
+        catch(err) {
+            console.log(err);
+        }        
+    };
+
+    useEffect(() => {
+
+        if(id) {
+            getListInfo();
+        }
     }, []);    
 
     useEffect(() => {

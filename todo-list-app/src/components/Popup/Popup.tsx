@@ -25,7 +25,7 @@ const Popup: React.FC<PopupProps> = ({ type, show, onClose, callback }) => {
     const [selectedValue, setSelectedValue] = useState<string>('');
     const [startDate, setStartDate] = useState<Date | null>(new Date());
     const [nameList, setNameList] = useState<string>('');
-    const { userId } = useParams<{ userId: string }>();
+    const userId = localStorage.getItem('user_id');
 
     useEffect(() => {
         const getCategories = async () => {

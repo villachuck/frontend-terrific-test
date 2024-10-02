@@ -1,8 +1,11 @@
 .accordion-body {
     border: 1px solid #000;
-    padding: 15px;
+    border-top: 1px solid #ffbd33;
+    padding: 20px 15px 15px 15px;
     border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;    
+    border-bottom-right-radius: 15px;
+    position: relative;
+    top: -6px;
 }
 
 .details-container {
@@ -65,4 +68,12 @@
 
 .remove-style-through span {
     text-decoration: none;
+}
+
+.hide-subtasks {
+    display: none;
+}
+
+.show-subtasks {
+    display: block;
 }

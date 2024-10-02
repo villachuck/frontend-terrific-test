@@ -1,15 +1,20 @@
 import React, {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
-//import { useUser } from '../../context/UserContext';
 import './Login.css';
 
 const Login = () => {
+    const [loginForm, setLoginForm] = useState<boolean>(true);
     const [userLogged, setUserLogged] = useState<boolean>(false);
     const [showErrorMsg, setShowErrorMsg] = useState<boolean>(false);
     const [userEmail, setUserEmail] = useState<string>('');
     const [userPassword, setUserPassword] = useState<string>('');
+    const [newUserEmail, setNewUserEmail] = useState<string>('');
+    const [newUserPassword, setNewUserPassword] = useState<string>('');
     const navigate = useNavigate();
-    //const { setUserId } = useUser();
+    const startDate = new Date();
+    const year = startDate.getFullYear();
+    const month = (startDate.getMonth() + 1).toString().padStart(2, "0"); 
+    const day = startDate.getDate().toString().padStart(2, "0");
 
     const login = () => {
         const loginData = {
@@ -26,9 +31,10 @@ const Login = () => {
         .then(data => {
             if(data.status == 200){
                 setUserLogged(true);
+                console.log(data);
                 localStorage.setItem('authToken', data.token);
                 localStorage.setItem('isAuthenticated', 'true');
-                getUserInfo(); 
+                getUserInfo(data.user); 
             }
             else{
                 setUserLogged(false);
@@ -38,7 +44,8 @@ const Login = () => {
     };
 
     const userToken = localStorage.getItem('authToken');
-    const getUserInfo = () => {
+
+    const getUserInfo = (uid: string) => {
         const userData = {
             method: 'POST',
             headers: { 
@@ -47,7 +54,7 @@ const Login = () => {
             },
             body: JSON.stringify({
                 email: userEmail,
-                password: userPassword
+                supabase_uid: uid
             })
         };
 
@@ -56,8 +63,9 @@ const Login = () => {
         .then(data => {
             if(data.status == 200){
                 console.log(data);
-                //setUserId(data.id);
-                navigate(`/home/${data.id}`);  
+                localStorage.setItem('user_id', data.id);
+                localStorage.setItem('filter_date', `${year}-${month}-${day}`);
+                navigate("/home");  
             }
             else{
                 setUserLogged(false);
@@ -74,12 +82,51 @@ const Login = () => {
         setUserPassword(e.target.value);
     };
 
+    const getRegisterEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewUserEmail(e.target.value);
+    };
+    
+    const getRegisterPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewUserPassword(e.target.value);
+    };
+
+    const changeToRegistration = () => setLoginForm(!loginForm);
+
+
+    const newClient = () => {
+        const userData = {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: newUserEmail,
+                password: newUserPassword
+            })
+        };
+
+        fetch('http://localhost:3000/api/register', userData)
+        .then(response => response.json())
+        .then(data => {
+            if(data.status == 200){
+                console.log(data); 
+            }
+            else{
+                setShowErrorMsg(true);
+            }                     
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
     return (
         <div className="login">
             <div className="login-body">
                 <div className="login-body-container">
                     <img src="logo-todo-list.png" alt="logo todo list" />
-                    <h4>Sign in</h4>
+                    <h4>{loginForm ? 'Sign in' : 'Create an account'}</h4>
+                    {loginForm ?
                     <div className="login-form">
                         <label>Email</label>
                         <input type="email" value={userEmail} onChange={getEmail} />
@@ -92,8 +139,24 @@ const Login = () => {
                             <button type="button" className="btn-login" onClick={login}>Login</button>
                         </div>
                         <hr />
-                        <p>Don't have an account? <span>Sign up</span></p>
+                        <p>Don't have an account? <span onClick={changeToRegistration}>Sign up</span></p>
                     </div>
+                    :
+                    <div className="login-form">
+                        <label>Email</label>
+                        <input type="email" value={newUserEmail} onChange={getRegisterEmail} />
+                        <label>Password</label>
+                        <input type="password" value={newUserPassword} onChange={getRegisterPassword} /> 
+                        {showErrorMsg &&
+                            <p className="error-label">Invalid credentials, please try again!</p>
+                        }
+                        <div className="button-block">
+                            <button type="button" className="btn-login" onClick={newClient}>Sign up</button>
+                        </div>
+                        <hr />
+                        <p>Already have an account? <span onClick={changeToRegistration}>Sign in</span></p>
+                    </div>
+                    }
                 </div>    
             </div>
         </div>

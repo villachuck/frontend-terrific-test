@@ -92,6 +92,66 @@
     cursor: pointer;
 }
 
+.menu-mobile {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+}
+
+.app-menu-mobile {
+    position: absolute;
+    opacity: 1;
+    background: #000;
+    right: 0;
+    width: 85%;
+    height: 100vh;
+}
+
+.close-section {
+    padding-top: 5px;
+}
+
+.close-section img {
+    width: 50px;
+}
+
+.list-app-menu-mobile {
+    list-style-type: none;
+    padding: 0;
+}
+
+.list-app-menu-mobile li {
+    padding: 20px;
+    border-bottom: 1px solid #fff;
+}
+
+.list-app-menu-mobile li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-app-menu-mobile li img {
+    width: 20px;
+    filter: invert(99%) sepia(99%) saturate(1%) hue-rotate(162deg) brightness(105%) contrast(100%);
+    rotate: 270deg;
+}
+
+.closeMenu {
+    display: none;
+}
+
+.openMenu {
+    display: block;
+}
+
+
 @media screen and (max-width: 992px) {
     .mobile-menu {
         display: block;

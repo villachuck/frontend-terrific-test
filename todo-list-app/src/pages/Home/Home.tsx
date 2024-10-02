@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import Accordion from '../../components/Accordion/Accordion';
 import Popup from '../../components/Popup/Popup';
 import UpdateBar from '../../components/UpdateBar/UpdateBar';
@@ -13,17 +12,18 @@ interface List {
 }
 
 const Home: React.FC = () => {
-    const currentDate = new Date().toDateString(); 
-    const [today, setSelectedDate] = useState(currentDate);
+    const userId = localStorage.getItem('user_id');
+    const today = localStorage.getItem('filter_date');
     const [list, setLists] = useState<List[]>([]);
     const [loading, setLoading] = useState<boolean>(true); 
     const [isPopUpVisible, setIsPopUpVisible] = useState<boolean>(false); 
-    const [isUpdatePopUpVisible, setUpdatePopUpVisible] = useState(false); 
     const [taksType, setTaskType] = useState<string>("todoList");
     const [selectedList, setSelectedList] = useState<string | null>(null);
-    const { userId } = useParams<{ userId: string }>();
-    const [popupAction, setPopupAction] = useState<string | null>(null);
-    const [toggleIcon, settoggleIcon] = useState<boolean>(false);
+    const [toggleIcon, settoggleIcon] = useState<string | null>('positionIcon');
+    const [toggleEditionMode, setToggleEditionMode] = useState<string | null>(null);
+    const [idForSubtaskList, setIdForSubtaskList] = useState<string | null>(null);
+    const [toggleSubtaskList, setToggleSubtaskList] = useState<string>('show-subtasks');
+
 
     const getLists = async () => {
         try {
@@ -48,22 +48,14 @@ const Home: React.FC = () => {
     }, []);
 
     const openPopUp = () => {
-        setTaskType('todoList');
-        setPopupAction(null);        
+        setTaskType('todoList');       
         setIsPopUpVisible(true);
-    }
-
-    const openUpdatesPopup = () => {
-        setUpdatePopUpVisible(true);
     }
     
     const closePopUp = () => setIsPopUpVisible(false);
-    
-    const closePopUpUpdates = () => setUpdatePopUpVisible(false);
 
-    const toggleInputDetail = (id: string) => {
+    const toggleInputNewDetail = (id: string) => {
         setSelectedList(selectedList === id ? null : id);
-        settoggleIcon(!toggleIcon);
     } 
 
     const toggleBackInputDetails = () => setSelectedList(null);
@@ -102,92 +94,109 @@ const Home: React.FC = () => {
         });        
     }
 
+    const showEditionOptions = (id: string) => {
+        setToggleEditionMode((prev) => (prev === id ? null : id));                   
+    }
+    
+    const closeUpdateBar = () => setToggleEditionMode(null);
+
+    const hideSubtasksList = (id: string) => {
+        console.log(id)
+        //setIdForSubtaskList((prev) => (prev === id ? null : id))
+        //setToggleSubtaskList(idForSubtaskList === id && toggleSubtaskList === 'show-subtasks' ? 'hide-subtasks' : 'show-subtasks')      
+    };
+
     if (loading) return <p>Loading...</p>;
 
     return (
-        <div className='body-app'>
-            <div className='title-container'>
-                <h1>{today}</h1>
-                <button type='button' className='new-todo-list' onClick={openPopUp}>
-                    <img src='/new-list-icon.png' alt='create new list icon' /> New To-Do List
-                </button>
-            </div>            
-            <div className='container-body-list'>
-                {list.length > 0 ? 
-                <ul>
-                    {
-                        list.map((item) => (
-                            <li key={item.id}>
-                                <div className='accordion-element'>
-                                    <div className={`list-header ${item.status === 'pending' ? 'active-color' : 'completed-color'}`}>
-                                        <div className='list-name'>
-                                            Name: {item.list_name}
-                                            <span className='category-name'>{item.category}</span>    
+        <div className='home'>
+            <div className='home-body'>
+                <div className='title-container'>
+                    <h1>{today}</h1>
+                    <button type='button' className='new-todo-list' onClick={openPopUp}>
+                        <img src='/new-list-icon.png' alt='create new list icon' /> New To-Do List
+                    </button>
+                </div>            
+                <div className='container-body-list'>
+                    {list.length > 0 ? 
+                    <ul>
+                        {
+                            list.map((item) => (
+                                <li key={item.id}>
+                                    <div className='accordion-element'>
+                                        <div className={`list-header ${item.status === 'pending' ? 'active-color' : 'completed-color'}`}>
+                                            <div className='list-name'>
+                                                Name: {item.list_name}
+                                                <span className='category-name'>{item.category}</span>   
+                                            </div>
+                                            <div className='list-actions'>
+                                                {item.status === 'pending' &&
+                                                <div className='action-container'>
+                                                    <span className='action-button' onClick={() => toggleInputNewDetail(item.id)}>
+                                                        <img src='/add-icon.png' />
+                                                        <p className='action-desc'>Add task</p>
+                                                    </span>
+                                                </div>
+                                                }                                             
+                                                <div className='action-container'>
+                                                    <span className='action-button' onClick={() => showEditionOptions(item.id)}>
+                                                        <img src='/edit-icon-black.png' />
+                                                        <p className='action-desc'>Edit</p>
+                                                    </span>
+                                                </div>
+                                                <div className='action-container'>
+                                                    <span className='action-button' onClick={() => deleteList(item.id)}>
+                                                        <img src='/trash-icon-black.png' />
+                                                        <p className='action-desc'>Delete</p>
+                                                    </span>
+                                                </div>
+                                                {item.status === 'pending' ?
+                                                <>
+                                                <div className='action-container'>
+                                                    <span className='action-button'>
+                                                        <input type='checkbox' onClick={() => listCompleted(item.id)}/>
+                                                        <p>Mark as completed</p>
+                                                    </span>
+                                                </div>                                                                                                                                                                  
+                                                </>:
+                                                <>
+                                                <div className='action-container'>
+                                                    <span className='completed-list'>
+                                                        <p>Completed</p>
+                                                    </span>
+                                                </div>
+                                                </>
+                                                }
+                                                <div className='action-container'>
+                                                    <span className='action-button' onClick={() => hideSubtasksList(item.id)}>
+                                                        <img src='/toggle-down-icon.png' className={`action-button-img ${toggleIcon}`} />
+                                                    </span>
+                                                </div>                                                                                                                                                                   
+                                            </div>
                                         </div>
-                                        <div className='list-actions'>
-                                            {item.status === 'pending' &&
-                                            <div className='action-container'>
-                                                <span className='action-button' onClick={() => toggleInputDetail(item.id)}>
-                                                    <img src='/add-icon.png' />
-                                                    <p>Add task</p>
-                                                </span>
-                                            </div>
-                                            }                                             
-                                            <div className='action-container'>
-                                                <span className='action-button' onClick={() => openUpdatesPopup()}>
-                                                    <img src='/edit-icon-black.png' />
-                                                    <p>Edit</p>
-                                                </span>
-                                            </div>
-                                            <div className='action-container'>
-                                                <span className='action-button' onClick={() => deleteList(item.id)}>
-                                                    <img src='/trash-icon-black.png' />
-                                                    <p>Delete</p>
-                                                </span>
-                                            </div>
-                                            {item.status === 'pending' ?
-                                            <>
-                                            <div className='action-container'>
-                                                <span className='action-button'>
-                                                    <input type='checkbox' onClick={() => listCompleted(item.id)}/>
-                                                    <p>Mark as completed</p>
-                                                </span>
-                                            </div>                                                                                                                                                                  
-                                            </>:
-                                            <>
-                                            <div className='action-container'>
-                                                <span className='completed-list'>
-                                                    <p>Completed</p>
-                                                </span>
-                                            </div>
-                                            </>
-                                            }
-                                            <div className='action-container'>
-                                                <span className='action-button' onClick={() => toggleInputDetail(item.id)}>
-                                                    <img src='/toggle-down-icon.png' style={{
-                                                        transform: toggleIcon ? 'rotate(180deg)' : 'rotate(0deg)',
-                                                        transition: 'transform 0.3s ease'
-                                                    }}/>
-                                                </span>
-                                            </div>                                                                                                                                                                   
-                                        </div>
-                                    </div>
-                                    <Accordion 
-                                        list_id={item.id} 
-                                        newOptionVisibility={selectedList === item.id}
-                                        hideComponentForAdding={toggleBackInputDetails} 
+                                        <Accordion 
+                                            list_id={item.id} 
+                                            newOptionVisibility={selectedList === item.id}
+                                            hideComponentForAdding={toggleBackInputDetails}
+                                            toggleAll={toggleSubtaskList} 
                                         />
-                                    <UpdateBar id={item.id} show={isUpdatePopUpVisible} onClose={closePopUpUpdates} reload={getLists} />
-                                </div>
-                            </li>
-                        ))
+                                        <UpdateBar 
+                                            id={item.id} 
+                                            show={toggleEditionMode === item.id} 
+                                            onClose={closeUpdateBar} 
+                                            reload={getLists} 
+                                        />                                                                                    
+                                    </div>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                    :
+                    <p>There's no lists for today. Hit the button to create a new To-Do List.</p>
                     }
-                </ul>
-                :
-                <p>There's no lists for today. Hit the button to create a new To-Do List.</p>
-                }
+                </div>
+                <Popup type={taksType} show={isPopUpVisible} onClose={closePopUp} callback={getLists} />
             </div>
-            <Popup type={taksType} show={isPopUpVisible} onClose={closePopUp} callback={getLists} />
         </div>        
     )
 }

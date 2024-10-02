@@ -5,6 +5,7 @@ interface IdListProps {
     list_id: string;
     newOptionVisibility: boolean;
     hideComponentForAdding: () => void;
+    toggleAll: string | null;
 }
 
 interface Details {
@@ -13,7 +14,7 @@ interface Details {
     item_description: string;
 }
 
-const Accordion: React.FC<IdListProps> = ({ list_id, newOptionVisibility, hideComponentForAdding }) => {
+const Accordion: React.FC<IdListProps> = ({ list_id, newOptionVisibility, hideComponentForAdding, toggleAll }) => {
     const [detailsList, setDetailsList] = useState<Details[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [description, setDescription] = useState<string>('');
@@ -110,7 +111,7 @@ const Accordion: React.FC<IdListProps> = ({ list_id, newOptionVisibility, hideCo
     return (
         <div className={`accordion-container ${newOptionVisibility || detailsList.length > 0  ? 'accordion-show' : 'accordion-hide'}`}>
             
-            <div className='accordion-body'>
+            <div className={`accordion-body ${toggleAll}`}>
                 {newOptionVisibility &&  (
                     <div className="add-new-detail" >
                         <div className="detail-input-block">
