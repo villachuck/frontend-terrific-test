@@ -11,6 +11,10 @@
     align-items: center;
 }
 
+.app-logo {
+    cursor: pointer;
+}
+
 .app-logo img {
     max-width: 120px;
 }

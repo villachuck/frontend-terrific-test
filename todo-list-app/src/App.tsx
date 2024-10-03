@@ -14,6 +14,7 @@ const App = () => {
       <>
       {location.pathname !== '/login' && <Header />}
         <Routes>
+          <Route path='/' element={<Login />} />
           <Route path='/login' element={<Login />} />
           <Route path='/home' element={
             <ProtectedRoute>

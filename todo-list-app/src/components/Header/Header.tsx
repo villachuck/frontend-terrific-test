@@ -9,13 +9,17 @@ const Header: React.FC = () => {
         window.location.href = '/login';
     }
 
+    const goToHome = () => {
+        window.location.href = '/home';
+    }
+
     const toggleMobileMenu = () => setOpenMobileMenu(openMobileMenu === 'closeMenu' ? 'openMenu' : 'closeMenu');
     
     return (
         <>
         <div className="header">
             <div className="menu-section">
-                <div className="app-logo">
+                <div className="app-logo" onClick={goToHome}>
                     <img src="/logo-todo-list.png" alt="todo-list logo" />
                 </div>
                 <div className="app-menu">
@@ -43,6 +47,11 @@ const Header: React.FC = () => {
                     </span>
                 </div>
                 <ul className="list-app-menu-mobile">
+                    <li>
+                        <a href="/home">Home
+                            <img src="/toggle-down-icon.png" />
+                        </a>
+                    </li>                    
                     <li>
                         <a href="/my-calendar">Calendar
                             <img src="/toggle-down-icon.png" />

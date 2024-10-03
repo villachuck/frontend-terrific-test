@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
+import './UpdateBar.css';
 
 interface UpdateBarProps {
     id: string | null;
@@ -33,6 +34,7 @@ const UpdateBar: React.FC<UpdateBarProps> = ({ id, show, onClose, reload }) => {
         scheduled: new Date(),
         status: ''
     });
+    const [statusValue, setStatusValue] = useState<string | ''>('');
 
     const getListInfo = async () => {
         try {
@@ -50,7 +52,7 @@ const UpdateBar: React.FC<UpdateBarProps> = ({ id, show, onClose, reload }) => {
                 scheduled: data.data[0].scheduled,
                 status: data.data[0].status
             }); 
-            console.log(data);                          
+            setStatusValue(data.data[0].status);                          
         }
         catch(err) {
             console.log(err);
@@ -99,7 +101,16 @@ const UpdateBar: React.FC<UpdateBarProps> = ({ id, show, onClose, reload }) => {
         });
     };
 
-    const saveChanges = async() => {
+    const changeStatus = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setStatusValue(e.target.value);
+
+        setDetailsList({
+            ...detailsList,
+          status: e.target.value,
+        });
+    };
+
+    const saveChanges = async() => {     
         const dataNewDetail = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -149,6 +160,17 @@ const UpdateBar: React.FC<UpdateBarProps> = ({ id, show, onClose, reload }) => {
                             <label>Date</label>
                             <DatePicker selected={detailsList.scheduled} onChange={handleDateChange}
                                 dateFormat={'dd/MM/yyyy'}/>
+                        </div>
+                        <div className="status-section">
+                        <label>Status</label>
+                            <select id="status"
+                                value={statusValue}
+                                name="status"
+                                onChange={changeStatus}>
+                                    <option value="" disabled>Change status</option>
+                                    <option value="pending">pending</option>                                       
+                                    <option value="completed">completed</option>                                       
+                            </select>
                         </div>
                         <div className="popup-footer">
                             <button type="button" className="btn-create-element" onClick={saveChanges}>Update</button>

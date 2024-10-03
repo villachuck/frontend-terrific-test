@@ -19,11 +19,8 @@ const Home: React.FC = () => {
     const [isPopUpVisible, setIsPopUpVisible] = useState<boolean>(false); 
     const [taksType, setTaskType] = useState<string>("todoList");
     const [selectedList, setSelectedList] = useState<string | null>(null);
-    const [toggleIcon, settoggleIcon] = useState<string | null>('positionIcon');
     const [toggleEditionMode, setToggleEditionMode] = useState<string | null>(null);
     const [idForSubtaskList, setIdForSubtaskList] = useState<string | null>(null);
-    const [toggleSubtaskList, setToggleSubtaskList] = useState<string>('show-subtasks');
-
 
     const getLists = async () => {
         try {
@@ -100,10 +97,8 @@ const Home: React.FC = () => {
     
     const closeUpdateBar = () => setToggleEditionMode(null);
 
-    const hideSubtasksList = (id: string) => {
-        console.log(id)
-        //setIdForSubtaskList((prev) => (prev === id ? null : id))
-        //setToggleSubtaskList(idForSubtaskList === id && toggleSubtaskList === 'show-subtasks' ? 'hide-subtasks' : 'show-subtasks')      
+    const hideSubtasksList = (id: string) => {          
+        setIdForSubtaskList((prev) => (prev === id ? null : id));      
     };
 
     if (loading) return <p>Loading...</p>;
@@ -169,7 +164,7 @@ const Home: React.FC = () => {
                                                 }
                                                 <div className='action-container'>
                                                     <span className='action-button' onClick={() => hideSubtasksList(item.id)}>
-                                                        <img src='/toggle-down-icon.png' className={`action-button-img ${toggleIcon}`} />
+                                                        <img src='/toggle-down-icon.png' className={`action-button-img ${idForSubtaskList === item.id ? 'rotateIcon' : 'positionIcon'}`} />
                                                     </span>
                                                 </div>                                                                                                                                                                   
                                             </div>
@@ -178,7 +173,7 @@ const Home: React.FC = () => {
                                             list_id={item.id} 
                                             newOptionVisibility={selectedList === item.id}
                                             hideComponentForAdding={toggleBackInputDetails}
-                                            toggleAll={toggleSubtaskList} 
+                                            toggleAll={idForSubtaskList === item.id ? 'hide-subtasks' : 'show-subtasks'} 
                                         />
                                         <UpdateBar 
                                             id={item.id} 
