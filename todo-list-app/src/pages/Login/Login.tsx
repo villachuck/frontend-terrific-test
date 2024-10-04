@@ -26,7 +26,7 @@ const Login = () => {
             })
         };
 
-        fetch('http://localhost:3000/api/login', loginData)
+        fetch('https://terrific-backend-testgo.vercel.app/api/login', loginData)
         .then(response => response.json())
         .then(data => {
             if(data.status == 200){
@@ -57,7 +57,7 @@ const Login = () => {
             })
         };
 
-        fetch('http://localhost:3000/api/getUser', userData)
+        fetch('https://terrific-backend-testgo.vercel.app/api/getUser', userData)
         .then(response => response.json())
         .then(data => {
             if(data.status == 200){
@@ -103,7 +103,7 @@ const Login = () => {
             })
         };
 
-        fetch('http://localhost:3000/api/register', userData)
+        fetch('https://terrific-backend-testgo.vercel.app/api/register', userData)
         .then(response => response.json())
         .then(data => {
             if(data.status == 200){

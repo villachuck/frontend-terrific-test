@@ -38,7 +38,7 @@ const UpdateBar: React.FC<UpdateBarProps> = ({ id, show, onClose, reload }) => {
 
     const getListInfo = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/listById/${id}`);
+            const response = await fetch(`https://terrific-backend-testgo.vercel.app/api/listById/${id}`);
             if(!response.ok) {
                 throw new Error('Something went wrong');
             }
@@ -69,7 +69,7 @@ const UpdateBar: React.FC<UpdateBarProps> = ({ id, show, onClose, reload }) => {
     useEffect(() => {
         const getCategories = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/categories');
+                const response = await fetch('https://terrific-backend-testgo.vercel.app/api/categories');
                 if(!response.ok) {
                     throw new Error('Something went wrong');
                 }
@@ -117,7 +117,7 @@ const UpdateBar: React.FC<UpdateBarProps> = ({ id, show, onClose, reload }) => {
             body: JSON.stringify(detailsList)
         };
 
-        fetch(`http://localhost:3000/api/lists/update/${id}`, dataNewDetail)
+        fetch(`https://terrific-backend-testgo.vercel.app/api/lists/update/${id}`, dataNewDetail)
         .then(response => response.json())
         .then(data => {            
             onClose();

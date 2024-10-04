@@ -22,7 +22,7 @@ const Accordion: React.FC<IdListProps> = ({ list_id, newOptionVisibility, hideCo
 
     const getListDetails = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/details/' + list_id);
+            const response = await fetch('https://terrific-backend-testgo.vercel.app/api/details/' + list_id);
 
             if(!response.ok) {
                 throw new Error('Something went wrong');
@@ -58,7 +58,7 @@ const Accordion: React.FC<IdListProps> = ({ list_id, newOptionVisibility, hideCo
             })
         };
 
-        fetch('http://localhost:3000/api/details/new', dataNewDetail)
+        fetch('https://terrific-backend-testgo.vercel.app/api/details/new', dataNewDetail)
         .then(response => response.json())
         .then(data => {
             getListDetails();
@@ -77,7 +77,7 @@ const Accordion: React.FC<IdListProps> = ({ list_id, newOptionVisibility, hideCo
             })
         };
 
-        fetch(`http://localhost:3000/api/details/update/${id}`, dataNewDetail)
+        fetch(`https://terrific-backend-testgo.vercel.app/api/details/update/${id}`, dataNewDetail)
         .then(response => response.json())
         .then(data => {            
             getListDetails();
@@ -96,7 +96,7 @@ const Accordion: React.FC<IdListProps> = ({ list_id, newOptionVisibility, hideCo
             })
         };
 
-        fetch(`http://localhost:3000/api/details/update/${id}`, dataNewDetail)
+        fetch(`https://terrific-backend-testgo.vercel.app/api/details/update/${id}`, dataNewDetail)
         .then(response => response.json())
         .then(data => {
             getListDetails();

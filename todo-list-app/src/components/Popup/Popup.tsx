@@ -28,7 +28,7 @@ const Popup: React.FC<PopupProps> = ({ show, onClose, callback }) => {
     useEffect(() => {
         const getCategories = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/categories');
+                const response = await fetch('https://terrific-backend-testgo.vercel.app/api/categories');
                 if(!response.ok) {
                     throw new Error('Something went wrong');
                 }
@@ -73,7 +73,7 @@ const Popup: React.FC<PopupProps> = ({ show, onClose, callback }) => {
             })
         };
 
-        fetch('http://localhost:3000/api/lists/new', dataNewList)
+        fetch('https://terrific-backend-testgo.vercel.app/api/lists/new', dataNewList)
         .then(response => response.json())
         .then(data => {
             callback();

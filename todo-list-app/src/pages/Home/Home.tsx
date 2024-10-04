@@ -24,7 +24,7 @@ const Home: React.FC = () => {
 
     const getLists = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/lists/${userId}/${today}`);
+            const response = await fetch(`https://terrific-backend-testgo.vercel.app/api/lists/${userId}/${today}`);
             if(!response.ok) {
                 throw new Error('Something went wrong');
             }
@@ -65,7 +65,7 @@ const Home: React.FC = () => {
             })
         };
 
-        fetch(`http://localhost:3000/api/lists/update/${id}`, listToDelete)
+        fetch(`https://terrific-backend-testgo.vercel.app/api/lists/update/${id}`, listToDelete)
         .then(response => response.json())
         .then(data => {
             getLists();          
@@ -82,7 +82,7 @@ const Home: React.FC = () => {
             })
         };
 
-        fetch(`http://localhost:3000/api/lists/update/${id}`, listToUpdate)
+        fetch(`https://terrific-backend-testgo.vercel.app/api/lists/update/${id}`, listToUpdate)
         .then(response => response.json())
         .then(data => {
             getLists();          

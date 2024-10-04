@@ -30,7 +30,7 @@ const Calendar: React.FC = () => {
 
         const getSchedule = async (selection: string) => {
             try {
-                const response = await fetch(`http://localhost:3000/api/lists/${userId}/${selection}`);
+                const response = await fetch(`https://terrific-backend-testgo.vercel.app/api/lists/${userId}/${selection}`);
                 if(!response.ok) {
                     throw new Error('Something went wrong');
                 }
