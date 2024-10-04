@@ -10,10 +10,11 @@ import ProtectedRoute from './routes/ProtectedRoute';
 const App = () => {
   const location = useLocation();
   
+  const isLoginPage = location.pathname === '/login' || location.pathname === '/';
 
   return (
       <>
-      {location.pathname !== '/login' && <Header />}
+      {!isLoginPage && <Header />}
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='/login' element={<Login />} />
@@ -28,7 +29,7 @@ const App = () => {
             </ProtectedRoute>
           } />
         </Routes>
-        {location.pathname !== '/login' && <Footer />}
+        {!isLoginPage && <Footer />}
       </>
   );
 }
