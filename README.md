@@ -1,6 +1,6 @@
 Welcome to the Front of the Terrific's To-Do List App challenge.
 
-I took the liberty to deploy the App using Vercel. For the database I used Supabase, and the free plan allow me to have 2 users. One was mine for my own test, so I will share the credentials of the second user:
+I took the liberty to deploy the App using Vercel. For the database I used Supabase, and the free plan allows to have 2 users. One was mine for my own test, so I will share the credentials of the second user:
 
 link: http://frontend-terrific-test-ew9y2dg1q.vercel.app
 user: emailfortest@gmail.com
