@@ -4,6 +4,7 @@ import Login from './pages/Login/Login';
 import Header from './components/Header/Header';
 import Home from './pages/Home/Home';
 import Calendar from './components/Calendar/Calendar';
+import Footer from './components/Footer/Footer';
 import ProtectedRoute from './routes/ProtectedRoute';
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
             </ProtectedRoute>
           } />
         </Routes>
+        {location.pathname !== '/login' && <Footer />}
       </>
   );
 }

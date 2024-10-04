@@ -25,6 +25,9 @@ const Header: React.FC = () => {
                 <div className="app-menu">
                     <ul className="list-app-menu">
                         <li>
+                            <a href="/home">Home</a>
+                        </li>                    
+                        <li>
                             <a href="/my-calendar">Calendar</a>
                         </li>                    
                     </ul>                

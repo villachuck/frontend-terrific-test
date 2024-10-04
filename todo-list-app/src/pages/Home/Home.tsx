@@ -17,10 +17,10 @@ const Home: React.FC = () => {
     const [list, setLists] = useState<List[]>([]);
     const [loading, setLoading] = useState<boolean>(true); 
     const [isPopUpVisible, setIsPopUpVisible] = useState<boolean>(false); 
-    const [taksType, setTaskType] = useState<string>("todoList");
     const [selectedList, setSelectedList] = useState<string | null>(null);
     const [toggleEditionMode, setToggleEditionMode] = useState<string | null>(null);
     const [idForSubtaskList, setIdForSubtaskList] = useState<string | null>(null);
+    const actualDate = new Date().toLocaleDateString('en-CA');
 
     const getLists = async () => {
         try {
@@ -30,7 +30,6 @@ const Home: React.FC = () => {
             }
 
             const data = await response.json();
-            console.log(data);
             setLists(data);
             setLoading(false);                
         }
@@ -44,8 +43,7 @@ const Home: React.FC = () => {
         getLists();
     }, []);
 
-    const openPopUp = () => {
-        setTaskType('todoList');       
+    const openPopUp = () => {   
         setIsPopUpVisible(true);
     }
     
@@ -101,6 +99,11 @@ const Home: React.FC = () => {
         setIdForSubtaskList((prev) => (prev === id ? null : id));      
     };
 
+    const listForToday = () => {
+        localStorage.setItem('filter_date', actualDate);
+        window.location.reload();
+    }
+
     if (loading) return <p>Loading...</p>;
 
     return (
@@ -111,7 +114,14 @@ const Home: React.FC = () => {
                     <button type='button' className='new-todo-list' onClick={openPopUp}>
                         <img src='/new-list-icon.png' alt='create new list icon' /> New To-Do List
                     </button>
-                </div>            
+                </div>
+                {today !== actualDate &&
+                <div className='button-return-today'>
+                    <button type='button' className='set-todays-list' onClick={listForToday}>
+                        <img src='/return-icon.png' alt='create new list icon' /> Return today's Lists
+                    </button>                
+                </div>
+                }            
                 <div className='container-body-list'>
                     {list.length > 0 ? 
                     <ul>
@@ -190,7 +200,7 @@ const Home: React.FC = () => {
                     <p>There's no lists for today. Hit the button to create a new To-Do List.</p>
                     }
                 </div>
-                <Popup type={taksType} show={isPopUpVisible} onClose={closePopUp} callback={getLists} />
+                <Popup show={isPopUpVisible} onClose={closePopUp} callback={getLists} />
             </div>
         </div>        
     )

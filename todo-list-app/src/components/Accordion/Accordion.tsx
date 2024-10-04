@@ -28,7 +28,6 @@ const Accordion: React.FC<IdListProps> = ({ list_id, newOptionVisibility, hideCo
                 throw new Error('Something went wrong');
             }
             const data = await response.json();
-            console.log(data);
             setDetailsList(data);
             setLoading(false);
         }
@@ -62,7 +61,6 @@ const Accordion: React.FC<IdListProps> = ({ list_id, newOptionVisibility, hideCo
         fetch('http://localhost:3000/api/details/new', dataNewDetail)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             getListDetails();
             setDescription('');
             hideComponentForAdding();            

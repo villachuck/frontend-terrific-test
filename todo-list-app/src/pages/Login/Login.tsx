@@ -31,7 +31,6 @@ const Login = () => {
         .then(data => {
             if(data.status == 200){
                 setUserLogged(true);
-                console.log(data);
                 localStorage.setItem('authToken', data.token);
                 localStorage.setItem('isAuthenticated', 'true');
                 getUserInfo(data.user); 
@@ -62,7 +61,6 @@ const Login = () => {
         .then(response => response.json())
         .then(data => {
             if(data.status == 200){
-                console.log(data);
                 localStorage.setItem('user_id', data.id);
                 localStorage.setItem('filter_date', `${year}-${month}-${day}`);
                 navigate("/home");  

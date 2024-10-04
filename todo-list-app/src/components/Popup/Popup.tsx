@@ -6,7 +6,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 interface PopupProps {
-    type: string;
     show: boolean;
     onClose: () => void;
     callback: () => void;
@@ -17,8 +16,7 @@ interface Categories {
     name: string;
 }
 
-const Popup: React.FC<PopupProps> = ({ type, show, onClose, callback }) => {
-    const popUpTitle = type == 'todoList' ? 'New To-Do List' : 'Update To-Do List';
+const Popup: React.FC<PopupProps> = ({ show, onClose, callback }) => {
     const openPopUp = show ? 'popup-visible' : 'popup-hidden';
     //const [visibility, setVisibility] = useState<string>(openPopUp);
     const [categoryList, setCategoryList] = useState<Categories[]>([]);
@@ -78,7 +76,6 @@ const Popup: React.FC<PopupProps> = ({ type, show, onClose, callback }) => {
         fetch('http://localhost:3000/api/lists/new', dataNewList)
         .then(response => response.json())
         .then(data => {
-            console.log(data); 
             callback();
             onClose();                        
         });
@@ -89,14 +86,12 @@ const Popup: React.FC<PopupProps> = ({ type, show, onClose, callback }) => {
         <div className={`popup-background ${openPopUp}`}>
             <div className="popup-container">
                 <div className="popup-header">
-                    {popUpTitle}
+                    New To-Do List
                     <div className="close-popup" onClick={onClose}>
                         <img src="/close-icon.png" alt="close icon" />
                     </div>
                 </div>
                 <div className="popup-body">
-                    {type == 'todoList'
-                        ?
                         <div className="todo-fields">
                             <div className="name-section">
                                 <label>Name</label>
@@ -122,12 +117,7 @@ const Popup: React.FC<PopupProps> = ({ type, show, onClose, callback }) => {
                                 <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} 
                                     dateFormat={'dd/MM/yyyy'}/>
                             </div>
-                        </div>
-                        :
-                        <div className="task-fields">
-                            
-                        </div>
-                    }                
+                        </div>                
                 </div>
                 <div className="popup-footer">
                     <button type="button" className="btn-create-element" onClick={newList}>Create</button>

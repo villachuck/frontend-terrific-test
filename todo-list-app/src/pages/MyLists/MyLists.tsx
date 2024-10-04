@@ -27,9 +27,7 @@ const MyLists: React.FC = () => {
                 }
     
                 const data = await response.json();
-                console.log(data);
                 setListOfLists(data);
-                console.log(data)
                 setLoading(false);                
             }
             catch(err) {
@@ -39,8 +37,7 @@ const MyLists: React.FC = () => {
         };
         
         allLists();
-    }, [])
-    console.log(userId);
+    }, []);
 
     return(
         <>

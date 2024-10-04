@@ -103,6 +103,7 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    text-align: center;
 }
 
 #categories option {
@@ -141,5 +142,9 @@
 @media screen and (max-width: 992px) {
     .popup-container {
         width: 90%;
+    }
+
+    #categories {
+        width: 100%;
     }
 }

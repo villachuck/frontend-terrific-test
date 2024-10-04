@@ -35,8 +35,7 @@ const Calendar: React.FC = () => {
                     throw new Error('Something went wrong');
                 }
     
-                const data = await response.json();
-                console.log(data);            
+                const data = await response.json();         
                 setSizeDiv('w-60');
                 setSizeDiv2('w-40');
                 setScheduledList(data);
